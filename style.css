@@ -12,8 +12,8 @@
     --border-color-hover: rgba(0, 229, 255, 0.3);
     
     --color-cyan: #00E5FF;
-    --color-purple: #7C3AED;
-    --color-blue: #2563EB;
+    --color-purple: #4F46E5; /* Indigo accent representing intelligence */
+    --color-blue: #2563EB;   /* Cyber blue representing security */
     --color-text-primary: #FFFFFF;
     --color-text-secondary: #94A3B8;
     --color-text-muted: #64748B;
@@ -26,7 +26,7 @@
     --transition-slow: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     
     --glow-cyan: 0 0 15px rgba(0, 229, 255, 0.35);
-    --glow-purple: 0 0 15px rgba(124, 58, 237, 0.35);
+    --glow-purple: 0 0 15px rgba(79, 70, 229, 0.35);
     --glow-card: 0 10px 30px -15px rgba(0, 0, 0, 0.7);
     --glass-blur: blur(16px) saturate(180%);
 }
@@ -882,10 +882,64 @@ section {
 }
 
 /* --- Projects Section --- */
+.project-filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    color: var(--color-text-secondary);
+    padding: 0.6rem 1.4rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    backdrop-filter: var(--glass-blur);
+    transition: all var(--transition-smooth);
+}
+
+.filter-btn:hover {
+    border-color: rgba(0, 229, 255, 0.25);
+    color: var(--color-text-primary);
+    transform: translateY(-1px);
+}
+
+.filter-btn.active {
+    background: rgba(0, 229, 255, 0.1);
+    border-color: var(--color-cyan);
+    color: var(--color-cyan);
+    box-shadow: var(--glow-cyan);
+}
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     gap: 2.5rem;
+}
+
+.project-card.filter-hide {
+    display: none !important;
+}
+
+.project-card.filter-show {
+    animation: filterReveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes filterReveal {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 .project-card {
@@ -976,118 +1030,241 @@ section {
     animation: scanVertical 3s ease-in-out infinite;
 }
 
-/* Lost & Found Node */
-.lostfound-visual {
-    background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 70%);
+/* AI Resume Builder Visual */
+.resume-visual {
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.12) 0%, transparent 70%);
 }
-.node-grid {
-    width: 70%;
-    height: 60%;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: 20px 20px;
-}
-.searching-pulse {
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    border: 2px solid var(--color-purple);
-    border-radius: 50%;
-    animation: pulseRing 2s cubic-bezier(0.16, 1, 0.3, 1) infinite;
-}
-
-/* ML Prediction Graph */
-.ml-visual {
-    background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
-}
-.graph-line {
-    width: 80%;
-    height: 2px;
-    background: var(--color-blue);
-    transform: rotate(-15deg);
+.resume-mock {
+    width: 80px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1.5px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     position: relative;
+    box-shadow: var(--glow-card);
 }
-.graph-line::after {
-    content: '';
-    position: absolute;
-    right: 0;
-    top: -4px;
-    width: 10px;
-    height: 10px;
-    background: var(--color-cyan);
-    border-radius: 50%;
-    box-shadow: var(--glow-cyan);
-}
-
-/* Shield Visual */
-.cyberport-visual {
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.1) 0%, transparent 70%);
-}
-.security-shield-glow {
-    width: 60px;
-    height: 60px;
-    border: 2px solid var(--color-cyan);
-    border-radius: 4px;
-    transform: rotate(45deg);
-    box-shadow: var(--glow-cyan);
-    animation: rotateSlow 15s linear infinite;
-}
-
-/* Scanner Visual */
-.scanner-visual {
-    background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, transparent 70%);
-}
-.ping-wave {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: rgba(124, 58, 237, 0.2);
-    box-shadow: 0 0 20px var(--color-purple);
-    animation: bounceScale 2s ease-in-out infinite;
-}
-
-/* Vault Visual */
-.vault-visual {
-    background: radial-gradient(circle, rgba(0, 229, 255, 0.12) 0%, transparent 70%);
-}
-.locker-keyhole {
-    width: 40px;
-    height: 40px;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 50%;
-    position: relative;
-}
-.locker-keyhole::after {
-    content: '';
-    position: absolute;
-    width: 8px;
-    height: 16px;
-    background: var(--color-cyan);
-    bottom: 5px;
-    left: 14px;
+.resume-line {
+    height: 4px;
+    background: rgba(255, 255, 255, 0.08);
     border-radius: 2px;
 }
+.resume-line.short { width: 50%; }
+.resume-line.mid { width: 75%; }
+.resume-line.accent { background: var(--color-cyan); width: 40%; }
+.resume-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    align-self: flex-start;
+}
+.resume-scan-bar {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--color-cyan);
+    box-shadow: 0 0 8px var(--color-cyan);
+    animation: scanVertical 2.5s ease-in-out infinite;
+}
 
-/* Face Visual */
-.face-visual {
-    background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 70%);
+/* Blogging Platform Visual */
+.blog-visual {
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%);
 }
-.camera-bounding-box {
-    width: 90px;
-    height: 90px;
-    border: 1.5px dashed var(--color-purple);
+.blog-mock-grid {
+    display: flex;
+    gap: 8px;
+    width: 70%;
+    height: 60%;
+}
+.blog-mock-card {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 8px;
-    position: relative;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
-.camera-bounding-box::before {
+.blog-img-holder {
+    height: 35px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+}
+.blog-img-holder::after {
     content: '';
     position: absolute;
-    width: 15px;
-    height: 15px;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    100% { left: 200%; }
+}
+
+/* Blind SQLi Password Extractor Visual */
+.sqli-visual {
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.12) 0%, transparent 70%);
+}
+.db-cylinder-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.db-cylinder {
+    width: 60px;
+    height: 20px;
+    border: 1.5px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50% / 5px;
+    background: rgba(255, 255, 255, 0.02);
+    position: relative;
+}
+.db-cylinder::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50% / 5px;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.15);
+    top: 2px;
+}
+.db-cylinder.compromised {
     border-color: var(--color-cyan);
-    border-style: solid;
-    border-width: 2px 0 0 2px;
-    top: -2px;
-    left: -2px;
+    box-shadow: var(--glow-cyan);
+}
+.injection-arrow {
+    position: absolute;
+    width: 2px;
+    height: 60px;
+    background: linear-gradient(180deg, transparent, var(--color-cyan));
+    animation: injectDown 2s ease-in-out infinite;
+}
+
+@keyframes injectDown {
+    0% { transform: translateY(-30px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(30px); opacity: 0; }
+}
+
+/* Inferential SQLi Detector Visual */
+.sqldetect-visual {
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.15) 0%, transparent 70%);
+}
+.terminal-frame {
+    width: 110px;
+    height: 75px;
+    background: #020617;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 8px;
+    font-family: monospace;
+    font-size: 0.55rem;
+    color: var(--color-cyan);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+}
+.term-header {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 3px;
+    margin-bottom: 2px;
+}
+.term-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+}
+.term-dot.red { background: #ef4444; }
+.term-dot.yellow { background: #eab308; }
+.term-dot.green { background: #22c55e; }
+.term-line {
+    white-space: nowrap;
+    opacity: 0.8;
+}
+.term-line.highlight { color: #fff; font-weight: bold; }
+
+/* Web Vulnerability Scanner Visual */
+.webscan-visual {
+    background: radial-gradient(circle, rgba(0, 229, 255, 0.1) 0%, transparent 70%);
+}
+.shield-circle {
+    width: 70px;
+    height: 70px;
+    border: 2px solid var(--color-cyan);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    box-shadow: var(--glow-cyan);
+}
+.shield-pulse-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--color-cyan);
+    border-radius: 50%;
+    animation: ringPulse 2s linear infinite;
+}
+.shield-icon {
+    font-size: 1.8rem;
+    color: var(--color-cyan);
+}
+
+/* Network Reconnaissance & Port Scanner Visual */
+.netscan-visual {
+    background: radial-gradient(circle, rgba(79, 70, 229, 0.12) 0%, transparent 70%);
+}
+.network-nodes {
+    width: 100px;
+    height: 100px;
+    position: relative;
+}
+.center-node {
+    width: 12px;
+    height: 12px;
+    background: var(--color-cyan);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: var(--glow-cyan);
+}
+.orbit-node {
+    width: 8px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    position: absolute;
+}
+.on-1 { top: 15%; left: 25%; }
+.on-2 { top: 25%; right: 15%; }
+.on-3 { bottom: 20%; left: 15%; }
+.on-4 { bottom: 15%; right: 25%; }
+.network-ping {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 1px dashed rgba(0, 229, 255, 0.25);
+    border-radius: 50%;
+    animation: rotateSlow 20s linear infinite;
 }
 
 .project-info {
@@ -1305,6 +1482,46 @@ section {
         left: 12px;
         right: auto;
     }
+}
+
+/* Badge styling for Timeline Categories (Education vs Experience) */
+.timeline-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    margin-bottom: 0.75rem;
+    align-self: flex-start;
+}
+.timeline-badge.edu {
+    background: rgba(0, 229, 255, 0.08);
+    border: 1px solid rgba(0, 229, 255, 0.2);
+    color: var(--color-cyan);
+}
+.timeline-badge.exp {
+    background: rgba(79, 70, 229, 0.08);
+    border: 1px solid rgba(79, 70, 229, 0.2);
+    color: var(--color-purple);
+}
+
+/* Badge styling for Pursuing Certifications */
+.cert-status-badge {
+    display: inline-block;
+    background: rgba(0, 229, 255, 0.08);
+    border: 1px solid rgba(0, 229, 255, 0.25);
+    color: var(--color-cyan);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 1rem;
+    align-self: flex-start;
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.1);
 }
 
 /* --- Certificates Section --- */

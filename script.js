@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. CYBER TYPING SYSTEM
     // ==========================================
     const typingSpan = document.getElementById('typing-text');
-    const terms = ["Cybersecurity Enthusiast", "Ethical Hacker", "Full Stack Developer", "AI Engineer"];
+    const terms = ["Cybersecurity Engineer", "AI Engineer", "Full Stack Developer", "Ethical Hacker", "Prompt Engineer"];
     let termIdx = 0;
     let charIdx = 0;
     let isDeleting = false;
@@ -514,6 +514,38 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, 500);
                 }, 5000);
             }, 2500);
+        });
+    }
+
+    // ==========================================
+    // 9. PROJECT FILTERING SYSTEM
+    // ==========================================
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    if (filterButtons.length > 0 && projectCards.length > 0) {
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    const cardCategories = card.getAttribute('data-category');
+                    if (!cardCategories) return;
+                    
+                    const categories = cardCategories.split(' ');
+                    if (filterValue === 'all' || categories.includes(filterValue)) {
+                        card.classList.remove('filter-hide');
+                        card.classList.add('filter-show');
+                    } else {
+                        card.classList.remove('filter-show');
+                        card.classList.add('filter-hide');
+                    }
+                });
+            });
         });
     }
 });
